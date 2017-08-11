@@ -42,11 +42,11 @@ public class SearchServiceTest {
         esTemplate.putMapping(Song.class);
         esTemplate.refresh(Song.class);
 
-
-        esTemplate.deleteIndex(Person.class);
-        esTemplate.createIndex(Person.class);
-        esTemplate.putMapping(Person.class);
-        esTemplate.refresh(Person.class);
+//
+//        esTemplate.deleteIndex(Person.class);
+//        esTemplate.createIndex(Person.class);
+//        esTemplate.putMapping(Person.class);
+//        esTemplate.refresh(Person.class);
     }
 
     @Test
@@ -54,13 +54,36 @@ public class SearchServiceTest {
         Song song = new Song("1", "One", newArrayList(new Person("1","Lars Ulrich"), new Person("2", "James Hetfield")),
             newArrayList("Lars Ulrich", "James Hetfield"), newArrayList("Metallica"));
         songRepository.save(song);
-        IndexQuery iq = new IndexQuery();
-        iq.setId(song.getId());
-        iq.setObject(song);
-        esTemplate.index(iq);
-        esTemplate.refresh(Song.class);
+//        IndexQuery iq = new IndexQuery();
+//        iq.setId(song.getId());
+//        iq.setObject(song);
+//        esTemplate.index(iq);
+//        esTemplate.refresh(Song.class);
+
+        //List<Song> songs = searchService.findByAuthorFullName("James Hetfield");
+
+        List<Song> songs = searchService.findByName("one");
+
+        assertNotNull(songs);
+        assertEquals("Song couldn't be found", 1, songs.size());
+        Song foundSong = songs.get(0);
+        assertEquals(song.getName(), foundSong.getName());
+    }
+
+    @Test
+    public void testFindByAuthorOne() {
+        Song song = new Song("1", "One", newArrayList(new Person("1","Lars Ulrich"), new Person("2", "James Hetfield")),
+            newArrayList("Lars Ulrich", "James Hetfield"), newArrayList("Metallica"));
+        songRepository.save(song);
+//        IndexQuery iq = new IndexQuery();
+//        iq.setId(song.getId());
+//        iq.setObject(song);
+//        esTemplate.index(iq);
+//        esTemplate.refresh(Song.class);
 
         List<Song> songs = searchService.findByAuthorFullName("James Hetfield");
+
+       // List<Song> songs = searchService.findByName("one");
 
         assertNotNull(songs);
         assertEquals("Song couldn't be found", 1, songs.size());

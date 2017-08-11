@@ -1,5 +1,6 @@
 package mgorbachev.songs.finder.entities;
 
+import java.io.Serializable;
 import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -10,18 +11,21 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
  * Created by Mikhail_Gorbachev on 8/10/2017.
  */
 @Document(indexName = "songs", type = "songs")
-public class Song {
+public class Song implements Serializable {
     @Id
     private String id;
 
     private String name;
 
-    @Field(type= FieldType.Nested)
+    @Field(type = FieldType.Nested)
     private List<Person> authors;
 
     private List<String> composers;
 
     private List<String> artists;
+
+    public Song() {
+    }
 
     public Song(String id, String name, List<Person> authors, List<String> composers,
                 List<String> artists) {

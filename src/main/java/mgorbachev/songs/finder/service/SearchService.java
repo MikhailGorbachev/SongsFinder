@@ -20,5 +20,9 @@ public class SearchService {
         return songRepository.findSongsByAuthor(authorFullName);
     }
 
+    public List<Song> findByName(String name) {
+        return songRepository.findByName(name);
+    }
+
 
 }

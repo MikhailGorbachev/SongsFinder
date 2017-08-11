@@ -1,5 +1,6 @@
 package mgorbachev.songs.finder.repositories;
 
+import java.util.List;
 import mgorbachev.songs.finder.entities.Song;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
@@ -9,4 +10,6 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 public interface SongRepository extends ElasticsearchRepository<Song, String>, SearchRepository {
 
     Song save(Song song);
+
+    List<Song> findByName(String name);
 }
