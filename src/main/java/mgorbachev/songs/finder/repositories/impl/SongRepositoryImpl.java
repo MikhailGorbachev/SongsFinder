@@ -1,6 +1,6 @@
 package mgorbachev.songs.finder.repositories.impl;
 
-import java.util.List;
+import mgorbachev.songs.finder.entities.Artist;
 import mgorbachev.songs.finder.entities.Song;
 import mgorbachev.songs.finder.repositories.SearchRepository;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
+
+import java.util.List;
 
 import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
 import static org.elasticsearch.index.query.QueryBuilders.nestedQuery;
@@ -21,14 +23,30 @@ public class SongRepositoryImpl implements SearchRepository {
 
     @Override
     public List<Song> findSongsByAuthor(String author) {
-
         final QueryBuilder builder = nestedQuery("authors", matchQuery("authors.fullName", author));
 
         final SearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(builder).build();
-        final List<Song> songs = esTemplate.queryForList(searchQuery, Song.class);
 
-        return songs;
+        return esTemplate.queryForList(searchQuery, Song.class);
     }
+
+    @Override
+    public List<Song> findSongsByComposer(String composerName) {
+        final QueryBuilder builder = nestedQuery("composers", matchQuery("composers.fullName", composerName));
+        final SearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(builder).build();
+
+        return esTemplate.queryForList(searchQuery, Song.class);
+    }
+
+    @Override
+    public List<Song> findSongsByArtist(String artistName) {
+        final QueryBuilder builder = nestedQuery("artists", matchQuery("artists.name", artistName));
+        final SearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(builder).build();
+
+        return esTemplate.queryForList(searchQuery, Song.class);
+    }
+
+
 
 
 }

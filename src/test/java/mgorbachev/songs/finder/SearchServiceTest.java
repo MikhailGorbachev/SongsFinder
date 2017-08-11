@@ -1,6 +1,7 @@
 package mgorbachev.songs.finder;
 
-import java.util.List;
+import mgorbachev.songs.finder.entities.Album;
+import mgorbachev.songs.finder.entities.Artist;
 import mgorbachev.songs.finder.entities.Person;
 import mgorbachev.songs.finder.entities.Song;
 import mgorbachev.songs.finder.repositories.SongRepository;
@@ -11,8 +12,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
-import org.springframework.data.elasticsearch.core.query.IndexQuery;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static org.junit.Assert.assertEquals;
@@ -41,54 +43,76 @@ public class SearchServiceTest {
         esTemplate.createIndex(Song.class);
         esTemplate.putMapping(Song.class);
         esTemplate.refresh(Song.class);
-
-//
-//        esTemplate.deleteIndex(Person.class);
-//        esTemplate.createIndex(Person.class);
-//        esTemplate.putMapping(Person.class);
-//        esTemplate.refresh(Person.class);
-    }
-
-    @Test
-    public void testFindOne() {
-        Song song = new Song("1", "One", newArrayList(new Person("1","Lars Ulrich"), new Person("2", "James Hetfield")),
-            newArrayList("Lars Ulrich", "James Hetfield"), newArrayList("Metallica"));
-        songRepository.save(song);
-//        IndexQuery iq = new IndexQuery();
-//        iq.setId(song.getId());
-//        iq.setObject(song);
-//        esTemplate.index(iq);
-//        esTemplate.refresh(Song.class);
-
-        //List<Song> songs = searchService.findByAuthorFullName("James Hetfield");
-
-        List<Song> songs = searchService.findByName("one");
-
-        assertNotNull(songs);
-        assertEquals("Song couldn't be found", 1, songs.size());
-        Song foundSong = songs.get(0);
-        assertEquals(song.getName(), foundSong.getName());
     }
 
     @Test
     public void testFindByAuthorOne() {
-        Song song = new Song("1", "One", newArrayList(new Person("1","Lars Ulrich"), new Person("2", "James Hetfield")),
-            newArrayList("Lars Ulrich", "James Hetfield"), newArrayList("Metallica"));
-        songRepository.save(song);
-//        IndexQuery iq = new IndexQuery();
-//        iq.setId(song.getId());
-//        iq.setObject(song);
-//        esTemplate.index(iq);
-//        esTemplate.refresh(Song.class);
+        Song song = populateSong();
 
-        List<Song> songs = searchService.findByAuthorFullName("James Hetfield");
-
-       // List<Song> songs = searchService.findByName("one");
+        List<Song> songs = searchService.findSongsByAuthorName("James");
 
         assertNotNull(songs);
-        assertEquals("Song couldn't be found", 1, songs.size());
+        assertEquals(1, songs.size());
         Song foundSong = songs.get(0);
         assertEquals(song.getName(), foundSong.getName());
+    }
+
+    @Test
+    public void testFindArtistsBySong() {
+        Song song = populateSong();
+
+        List<Artist> artists = searchService.findArtistsBySong("1");
+
+        assertNotNull(artists);
+        assertEquals(1, artists.size());
+        assertEquals(song.getArtists().get(0).getName(), artists.get(0).getName());
+    }
+
+    @Test
+    public void testFindAlbumsBySong() {
+        Song song = populateSong();
+
+        List<Album> albums = searchService.findAlbumsBySong("1");
+
+        assertNotNull(albums);
+        assertEquals(1, albums.size());
+        assertEquals(song.getAlbums().get(0).getName(), albums.get(0).getName());
+    }
+
+
+    @Test
+    public void testFindSongsByComposer() {
+        Song song = populateSong();
+
+        List<Song> songs = searchService.findSongsByComposer("lars");
+
+        assertNotNull(songs);
+        assertEquals(1, songs.size());
+        assertEquals(song.getName(), songs.get(0).getName());
+    }
+
+
+    @Test
+    public void testFindSongsByArtist() {
+        Song song = populateSong();
+
+        List<Song> songs = searchService.findSongsByArtistName("metallica");
+
+        assertNotNull(songs);
+        assertEquals(1, songs.size());
+        assertEquals(song.getName(), songs.get(0).getName());
+    }
+
+    private Song populateSong() {
+        Person lars = new Person("1", "Lars Ulrich");
+        Person james = new Person("2", "James Hetfield");
+        List<Person> personList = newArrayList(lars, james);
+
+        Song song = new Song("1", "One", personList, personList,
+                newArrayList(new Artist("Metallica", Artist.ArtistType.GROUP)),
+                newArrayList(new Album("And Justice for All", newArrayList("One"))));
+
+        return songRepository.save(song);
     }
 
 
