@@ -6,6 +6,7 @@ import mgorbachev.songs.finder.entities.Song;
 import mgorbachev.songs.finder.repositories.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/search")
+@CrossOrigin(origins = "*")
 public class SearchService {
 
     @Autowired
@@ -30,7 +32,7 @@ public class SearchService {
     public List<Artist> findArtistsBySong(@PathVariable String songId) {
         Song song = songRepository.findById(songId);
         List<Artist> artists = Collections.emptyList();
-        if (song != null && !CollectionUtils.isEmpty(song.getArtists())) {
+        if(song != null && !CollectionUtils.isEmpty(song.getArtists())) {
             artists = song.getArtists();
         }
         return artists;
@@ -46,7 +48,7 @@ public class SearchService {
     public List<Album> findAlbumsBySong(@PathVariable String songId) {
         Song song = songRepository.findById(songId);
         List<Album> albums = Collections.emptyList();
-        if (song != null && !CollectionUtils.isEmpty(song.getAlbums())) {
+        if(song != null && !CollectionUtils.isEmpty(song.getAlbums())) {
             albums = song.getAlbums();
         }
         return albums;

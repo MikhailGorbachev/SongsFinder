@@ -1,0 +1,32 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center" xmlns="http://www.w3.org/1999/html">
+  <h1>
+    Welcome to Songs Finder Service!
+  </h1>
+
+</div>
+
+<div>
+  <p>
+    <label>Search type:</label>
+    <select [(ngModel)]="searchTypeValue">
+      <option *ngFor="let searchType of searchTypes"  [value]="searchType.id">{{searchType.name}}</option>
+    </select>
+  </p>
+  <p>
+    <label>Search text:</label>
+    <input  [(ngModel)]="queryText" />
+    <button (click)="find($event);">Find</button>
+  </p>
+</div>
+
+<div>
+  <table class="table">
+    <tr ng-repeat="song in $data">
+      <td >{{song.name}}</td>
+      <td >{{song.id}}</td>
+    </tr>
+  </table>
+</div>
+
+

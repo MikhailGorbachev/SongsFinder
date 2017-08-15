@@ -31,6 +31,7 @@ public class SongsFinderApplication implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception {
         populateSong();
+        populateAnotherSong();
     }
 
     private Song populateSong() {
@@ -41,6 +42,18 @@ public class SongsFinderApplication implements CommandLineRunner {
         Song song = new Song("1", "One", personList, personList,
                 newArrayList(new Artist("Metallica", Artist.ArtistType.GROUP)),
                 newArrayList(new Album("And Justice for All", newArrayList("One"))));
+
+        return repository.save(song);
+    }
+
+    private Song populateAnotherSong() {
+        Person lars = new Person("1", "Lars Ulrich");
+        Person james = new Person("2", "James Hetfield");
+        List<Person> personList = newArrayList(lars, james);
+
+        Song song = new Song("2", "Harvester of sorrow", personList, personList,
+            newArrayList(new Artist("Metallica", Artist.ArtistType.GROUP)),
+            newArrayList(new Album("And Justice for All", newArrayList("Harvester of sorrow"))));
 
         return repository.save(song);
     }
