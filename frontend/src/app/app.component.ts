@@ -9,7 +9,8 @@ import 'rxjs/add/operator/map';
 })
 export class AppComponent {
 
-  private baseUrl = 'http://localhost:8080/search';
+  /*private baseUrl = 'http://localhost:8080/search';*/
+  private baseUrl = '/search';
 
   searchTypes = [
        {id: 1, name: "Search songs by artist"},

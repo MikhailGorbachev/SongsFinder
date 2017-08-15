@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/search")
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 public class SearchService {
 
     @Autowired
