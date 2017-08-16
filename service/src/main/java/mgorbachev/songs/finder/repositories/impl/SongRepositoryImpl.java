@@ -1,6 +1,5 @@
 package mgorbachev.songs.finder.repositories.impl;
 
-import mgorbachev.songs.finder.entities.Artist;
 import mgorbachev.songs.finder.entities.Song;
 import mgorbachev.songs.finder.repositories.SearchRepository;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -11,10 +10,7 @@ import org.springframework.data.elasticsearch.core.query.SearchQuery;
 
 import java.util.List;
 
-import static org.elasticsearch.index.query.QueryBuilders.matchPhrasePrefixQuery;
-import static org.elasticsearch.index.query.QueryBuilders.matchPhraseQuery;
-import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
-import static org.elasticsearch.index.query.QueryBuilders.nestedQuery;
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Created by Mikhail_Gorbachev on 8/10/2017.

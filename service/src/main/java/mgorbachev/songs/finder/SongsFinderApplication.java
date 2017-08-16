@@ -5,6 +5,7 @@ import mgorbachev.songs.finder.entities.Artist;
 import mgorbachev.songs.finder.entities.Person;
 import mgorbachev.songs.finder.entities.Song;
 import mgorbachev.songs.finder.repositories.SongRepository;
+import mgorbachev.songs.finder.service.DataLoaderService;
 import mgorbachev.songs.finder.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -27,16 +28,20 @@ public class SongsFinderApplication implements CommandLineRunner {
     @Autowired
     private SongRepository repository;
 
+    @Autowired
+    private DataLoaderService dataLoaderService;
 
     @Override
     public void run(String... strings) throws Exception {
-        populateSong();
-        populateAnotherSong();
+//        populateSong();
+//        populateAnotherSong();
+        String url = this.getClass().getResource("/songDataset.csv").getPath();
+        dataLoaderService.loadData(url);
     }
 
     private Song populateSong() {
-        Person lars = new Person("1", "Lars Ulrich");
-        Person james = new Person("2", "James Hetfield");
+        Person lars = new Person("Lars Ulrich");
+        Person james = new Person("James Hetfield");
         List<Person> personList = newArrayList(lars, james);
 
         Song song = new Song("1", "One", personList, personList,
@@ -47,13 +52,13 @@ public class SongsFinderApplication implements CommandLineRunner {
     }
 
     private Song populateAnotherSong() {
-        Person lars = new Person("1", "Lars Ulrich");
-        Person james = new Person("2", "James Hetfield");
+        Person lars = new Person("Lars Ulrich");
+        Person james = new Person("James Hetfield");
         List<Person> personList = newArrayList(lars, james);
 
         Song song = new Song("2", "Harvester of sorrow", personList, personList,
-            newArrayList(new Artist("Metallica", Artist.ArtistType.GROUP)),
-            newArrayList(new Album("And Justice for All", newArrayList("Harvester of sorrow"))));
+                newArrayList(new Artist("Metallica", Artist.ArtistType.GROUP)),
+                newArrayList(new Album("And Justice for All", newArrayList("Harvester of sorrow"))));
 
         return repository.save(song);
     }

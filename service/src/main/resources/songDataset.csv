@@ -1,12 +1,21 @@
-SongName,SongId,Authors,Composers,Albums,Artists
-One,1,Lars Ulrich|James Hetfield,Lars Ulrich|James Hetfield,Justice for All,Metallica
-Enter Sandman,2,James Hetfield,James Hetfield,Metallica,Metallica
-Nothing Else Matters,3,Lars Ulrich|James Hetfield,Kirk Hammett,Metallica,Metallica
-Like a Virgin,4,Tom Kelly ,Billy Steinberg,Like a Virgin,Madonna
-Material Girl,5,Peter Brown,Robert Rans,Like a Virgin,Madonna
-You'll See,6,Madonna,David Foster|Paz Martinez,Something to Remember,Madonna
-Frozen,7,Madonna, Patrick Leonard|William Orbit,Ray of Light,Madonna
-It Must Have Been Love,8,Per Gessle,Per Gessle,Rock Ballads - The Collection,Roxette
-Glorious,9,Peter Andrej,Peter Andrej,Rock Ballads - The Collection,Andreas Johnson
-Walking In Memphis,10,Marc Cohn,Marc Cohn,Rock Ballads - The Collection,Marc Cohn
-I Need You Tonight,11,Billy Gibbons|Dusty Hill,Frank Beard,Rock Ballads - The Collection,ZZ Top
+SongName,SongId,Authors,Composers,Albums,Artists,Groups
+One,1,Lars Ulrich|James Hetfield,Lars Ulrich|James Hetfield,Justice for All,Lars Ulrich|James Hetfield,Metallica
+Enter Sandman,2,James Hetfield,James Hetfield,Metallica,Lars Ulrich|James Hetfield,Metallica
+Nothing Else Matters,3,Lars Ulrich|James Hetfield,Kirk Hammett,Metallica,Lars Ulrich|James Hetfield,Metallica
+Like a Virgin,4,Tom Kelly ,Billy Steinberg,Like a Virgin,Madonna,
+Material Girl,5,Peter Brown,Robert Rans,Like a Virgin,Madonna,
+You'll See,6,Madonna,David Foster|Paz Martinez,Something to Remember,Madonna,
+Frozen,7,Madonna,Patrick Leonard|William Orbit,Ray of Light,Madonna,
+It Must Have Been Love,8,Per Gessle,Per Gessle,Rock Ballads - The Collection,Per Gessle,Roxette
+Glorious,9,Peter Andrej,Peter Andrej,Rock Ballads - The Collection,Andreas Johnson,
+Walking In Memphis,10,Marc Cohn,Marc Cohn,Rock Ballads - The Collection,Marc Cohn,
+I Need You Tonight,11,Billy Gibbons|Dusty Hill,Frank Beard,Rock Ballads - The Collection,Frank Beard|Billy Gibbons|Dusty Hill,ZZ Top
+Money,12,Roger Waters,Roger Waters,The Dark Side of the Moon,Roger Waters|David Gilmour,Pink Floyd
+Speak to Me,13,Roger Waters,David Gilmour,The Dark Side of the Moon,Roger Waters|David Gilmour,Pink Floyd
+The Great Gig in the Sky,14,Roger Waters,David Gilmour,The Dark Side of the Moon,Roger Waters|David Gilmour,Pink Floyd
+Time,15,Roger Waters,David Gilmour,The Dark Side of the Moon,Roger Waters|David Gilmour,Pink Floyd
+Eclispe,16,Roger Waters,David Gilmour,The Dark Side of the Moon,Roger Waters|David Gilmour,Pink Floyd
+Highway Star,17,Ritchie Blackmore|Ian Gillan|Roger Glover|Jon Lord|Ian Paice,Ritchie Blackmore|Ian Gillan|Roger Glover|Jon Lord|Ian Paice,Machine Head,Ritchie Blackmore|Ian Gillan|Roger Glover|Jon Lord|Ian Paice,Deep Purple
+Smoke on the Water,18,Ritchie Blackmore|Ian Gillan|Roger Glover|Jon Lord|Ian Paice,Ritchie Blackmore|Ian Gillan|Roger Glover|Jon Lord|Ian Paice,Machine Head,Ritchie Blackmore|Ian Gillan|Roger Glover|Jon Lord|Ian Paice,Deep Purple
+Lazy,19,Ritchie Blackmore|Ian Gillan|Roger Glover|Jon Lord|Ian Paice,Ritchie Blackmore|Ian Gillan|Roger Glover|Jon Lord|Ian Paice,Machine Head,Ritchie Blackmore|Ian Gillan|Roger Glover|Jon Lord|Ian Paice,Deep Purple
+Space Truckin’,20,Ritchie Blackmore|Ian Gillan|Roger Glover|Jon Lord|Ian Paice,Ritchie Blackmore|Ian Gillan|Roger Glover|Jon Lord|Ian Paice,Machine Head,Ritchie Blackmore|Ian Gillan|Roger Glover|Jon Lord|Ian Paice,Deep Purple

@@ -116,13 +116,13 @@ public class SearchServiceTest {
     }
 
     private Song populateSong() {
-        Person lars = new Person("1", "Lars Ulrich");
-        Person james = new Person("2", "James Hetfield");
+        Person lars = new Person("Lars Ulrich");
+        Person james = new Person("James Hetfield");
         List<Person> personList = newArrayList(lars, james);
 
         Song song = new Song("1", "One", personList, personList,
                 newArrayList(new Artist("Metallica", Artist.ArtistType.GROUP)),
-                newArrayList(new Album("And Justice for All", newArrayList("One"))));
+                newArrayList(new Album("And Justice for All")));
 
         return songRepository.save(song);
     }
