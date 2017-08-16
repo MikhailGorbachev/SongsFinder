@@ -15,7 +15,18 @@
   </p>
   <p>
     <label>Search text:</label>
-    <input  [(ngModel)]="queryText" />
+    <!--<input  [(ngModel)]="queryText" />-->
+
+
+    <input [mdAutocomplete]="auto" [(ngModel)]="queryText" [formControl]="autocompleteCtrl">
+
+
+    <md-autocomplete #auto="mdAutocomplete">
+      <md-option *ngFor="let row of filteredRows | async" [value]="row">
+        {{ row }}
+      </md-option>
+    </md-autocomplete>
+
     <button (click)="find($event);">Find</button>
   </p>
 </div>

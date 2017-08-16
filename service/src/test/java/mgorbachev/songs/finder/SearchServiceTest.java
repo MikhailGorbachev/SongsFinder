@@ -103,6 +103,18 @@ public class SearchServiceTest {
         assertEquals(song.getName(), songs.get(0).getName());
     }
 
+
+    @Test
+    public void testFindSongsByPartialName() {
+        Song song = populateSong();
+
+        List<Song> songs = searchService.findSongsByName("on");
+
+        assertNotNull(songs);
+        assertEquals(1, songs.size());
+        assertEquals(song.getName(), songs.get(0).getName());
+    }
+
     private Song populateSong() {
         Person lars = new Person("1", "Lars Ulrich");
         Person james = new Person("2", "James Hetfield");

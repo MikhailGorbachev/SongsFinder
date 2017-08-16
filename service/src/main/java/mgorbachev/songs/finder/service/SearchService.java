@@ -70,4 +70,9 @@ public class SearchService {
         return songRepository.findSongsByArtist(artistName);
     }
 
+    @RequestMapping("/songs/{songNamePart}")
+    public List<Song> findSongsByName(@PathVariable String songNamePart) {
+        return songRepository.findSongsByName(songNamePart);
+    }
+
 }

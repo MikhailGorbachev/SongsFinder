@@ -11,6 +11,8 @@ import org.springframework.data.elasticsearch.core.query.SearchQuery;
 
 import java.util.List;
 
+import static org.elasticsearch.index.query.QueryBuilders.matchPhrasePrefixQuery;
+import static org.elasticsearch.index.query.QueryBuilders.matchPhraseQuery;
 import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
 import static org.elasticsearch.index.query.QueryBuilders.nestedQuery;
 
@@ -46,7 +48,13 @@ public class SongRepositoryImpl implements SearchRepository {
         return esTemplate.queryForList(searchQuery, Song.class);
     }
 
+    @Override
+    public List<Song> findSongsByName(String songName) {
+        final QueryBuilder builder = matchPhrasePrefixQuery("name", songName);
+        final SearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(builder).build();
 
+        return esTemplate.queryForList(searchQuery, Song.class);
+    }
 
 
 }
