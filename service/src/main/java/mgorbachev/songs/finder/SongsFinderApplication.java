@@ -35,8 +35,7 @@ public class SongsFinderApplication implements CommandLineRunner {
     public void run(String... strings) throws Exception {
 //        populateSong();
 //        populateAnotherSong();
-        String url = this.getClass().getResource("/songDataset.csv").getPath();
-        dataLoaderService.loadData(url);
+        dataLoaderService.loadData(this.getClass().getResource("/songDataset.csv").toURI());
     }
 
     private Song populateSong() {
