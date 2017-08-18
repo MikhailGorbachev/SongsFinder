@@ -61,10 +61,10 @@ public class SearchServiceTest {
     public void testFindArtistsBySong() {
         Song song = populateSong();
 
-        List<Artist> artists = searchService.findArtistsBySong("1");
+        List<Artist> artists = searchService.findArtistsBySong("one");
 
         assertNotNull(artists);
-        assertEquals(1, artists.size());
+        assertEquals(3, artists.size());
         assertEquals(song.getArtists().get(0).getName(), artists.get(0).getName());
     }
 
@@ -115,13 +115,16 @@ public class SearchServiceTest {
         assertEquals(song.getName(), songs.get(0).getName());
     }
 
+
     private Song populateSong() {
         Person lars = new Person("Lars Ulrich");
         Person james = new Person("James Hetfield");
         List<Person> personList = newArrayList(lars, james);
 
         Song song = new Song("1", "One", personList, personList,
-                newArrayList(new Artist("Metallica", Artist.ArtistType.GROUP)),
+                newArrayList(new Artist("Metallica", Artist.ArtistType.GROUP),
+                        new Artist(lars.getFullName(), Artist.ArtistType.SINGLE),
+                        new Artist(james.getFullName(), Artist.ArtistType.SINGLE)),
                 newArrayList(new Album("And Justice for All")));
 
         return songRepository.save(song);

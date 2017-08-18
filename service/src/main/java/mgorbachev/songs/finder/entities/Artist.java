@@ -11,8 +11,6 @@ public class Artist implements Serializable {
         SINGLE, GROUP
     }
 
-
-
     private String name;
 
     private ArtistType type;

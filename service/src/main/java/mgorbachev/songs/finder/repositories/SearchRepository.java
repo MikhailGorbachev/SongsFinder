@@ -1,6 +1,8 @@
 package mgorbachev.songs.finder.repositories;
 
 import java.util.List;
+
+import mgorbachev.songs.finder.entities.Artist;
 import mgorbachev.songs.finder.entities.Song;
 
 /**
@@ -16,5 +18,5 @@ public interface SearchRepository {
     List<Song> findSongsByArtist(String artistName);
 
     List<Song> findSongsByName(String songName);
-
+    List<Artist> findArtistsByName(String artistName);
 }

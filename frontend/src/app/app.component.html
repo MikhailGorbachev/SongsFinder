@@ -3,41 +3,72 @@
   <h1>
     Welcome to Songs Finder Service!
   </h1>
-
 </div>
 
 <div>
   <p>
     <label>Search type:</label>
-    <select [(ngModel)]="searchTypeValue">
-      <option *ngFor="let searchType of searchTypes"  [value]="searchType.id">{{searchType.name}}</option>
-    </select>
+    <kendo-combobox
+      [data]="searchTypes"
+      [(ngModel)]="searchTypeValue"
+      [textField]="'name'"
+      [valueField]="'id'"
+      [allowCustom]="false"
+      [clearButton]="false"
+      [filterable]="false"
+      [suggest]="false"
+      (valueChange)="onValueChange($event)">
+    </kendo-combobox>
   </p>
   <p>
     <label>Search text:</label>
     <!--<input  [(ngModel)]="queryText" />-->
 
-
-    <input [mdAutocomplete]="auto" [(ngModel)]="queryText" [formControl]="autocompleteCtrl">
-
-
-    <md-autocomplete #auto="mdAutocomplete">
-      <md-option *ngFor="let row of filteredRows | async" [value]="row">
-        {{ row }}
-      </md-option>
-    </md-autocomplete>
-
-    <button (click)="find($event);">Find</button>
+  <p *ngIf="searchTypeValue.id == '3'">
+    <kendo-autocomplete [data]="data"
+                        (valueChange)="valueChange($event)"
+                        (filterChange)="filterChange($event)"
+                        [(ngModel)]="queryText"
+                        [filterable]="true">
+    </kendo-autocomplete>
   </p>
+  <p *ngIf="searchTypeValue.id != '3'">
+    <input type="text" class="k-widget" [(ngModel)]="queryText" />
+  </p>
+
+  <button kendoButton (click)="find();">Find</button>
+
+  <kendo-grid *ngIf="searchTypeValue.id!='3'" [data]="gridData" [height]="410">
+
+    <kendo-grid-column field="id" title="ID" width="40">
+    </kendo-grid-column>
+    <kendo-grid-column field="name" title="Name" width="250">
+    </kendo-grid-column>
+    <kendo-grid-column  field="authors" title="Authors" width="250">
+    </kendo-grid-column>
+    <kendo-grid-column  field="composers" title="Composers" width="250">
+    </kendo-grid-column>
+    <kendo-grid-column  field="albums" title="Albums" width="250">
+    </kendo-grid-column>
+    <kendo-grid-column  field="artists" title="Artists" width="250">
+    </kendo-grid-column>
+  </kendo-grid>
+
+  <kendo-grid *ngIf="searchTypeValue.id=='3'" [data]="gridData" [height]="410">
+    <kendo-grid-column field="name" title="Name" width="250">
+    </kendo-grid-column>
+    <kendo-grid-column  field="type" title="Artist type" width="250">
+    </kendo-grid-column>
+  </kendo-grid>
 </div>
 
-<div>
-  <table class="table">
-    <tr *ngFor="let song of data">
-      <td >{{song.name}}</td>
-      <td >{{song.id}}</td>
-    </tr>
-  </table>
-</div>
+<!--<div>-->
+  <!--<table class="table">-->
+    <!--<tr *ngFor="let song of data">-->
+      <!--<td >{{song.name}}</td>-->
+      <!--<td >{{song.id}}</td>-->
+    <!--</tr>-->
+  <!--</table>-->
+<!--</div>-->
 
 

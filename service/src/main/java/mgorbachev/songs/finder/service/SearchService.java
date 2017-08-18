@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Mikhail_Gorbachev on 8/10/2017.
@@ -28,12 +29,12 @@ public class SearchService {
 
 
     //Design methods
-    @RequestMapping("/artists/song/{songId}")
-    public List<Artist> findArtistsBySong(@PathVariable String songId) {
-        Song song = songRepository.findById(songId);
+    @RequestMapping("/artists/song/{songName}")
+    public List<Artist> findArtistsBySong(@PathVariable String songName) {
+        List<Song> songs = songRepository.findSongsByName(songName);
         List<Artist> artists = Collections.emptyList();
-        if(song != null && !CollectionUtils.isEmpty(song.getArtists())) {
-            artists = song.getArtists();
+        if (songs != null) {
+            artists = songs.stream().flatMap(song -> song.getArtists().stream()).collect(Collectors.toList());
         }
         return artists;
     }
@@ -48,7 +49,7 @@ public class SearchService {
     public List<Album> findAlbumsBySong(@PathVariable String songId) {
         Song song = songRepository.findById(songId);
         List<Album> albums = Collections.emptyList();
-        if(song != null && !CollectionUtils.isEmpty(song.getAlbums())) {
+        if (song != null && !CollectionUtils.isEmpty(song.getAlbums())) {
             albums = song.getAlbums();
         }
         return albums;

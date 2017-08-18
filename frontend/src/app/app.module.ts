@@ -1,43 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, JsonpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-MdAutocompleteModule,
-MdButtonModule,
-MdButtonToggleModule,
-MdCardModule,
-MdCheckboxModule,
-MdChipsModule,
-MdCoreModule,
-MdDatepickerModule,
-MdDialogModule,
-MdExpansionModule,
-MdGridListModule,
-MdIconModule,
-MdInputModule,
-MdListModule,
-MdMenuModule,
-MdNativeDateModule,
-MdPaginatorModule,
-MdProgressBarModule,
-MdProgressSpinnerModule,
-MdRadioModule,
-MdRippleModule,
-MdSelectModule,
-MdSidenavModule,
-MdSliderModule,
-MdSlideToggleModule,
-MdSnackBarModule,
-MdSortModule,
-MdTableModule,
-MdTabsModule,
-MdToolbarModule,
-MdTooltipModule
-} from '@angular/material';
 import {CdkTableModule} from '@angular/cdk';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+import { ButtonsModule } from '@progress/kendo-angular-buttons';
+import { GridModule } from '@progress/kendo-angular-grid';
 
 @NgModule({
   declarations: [
@@ -49,38 +19,11 @@ import {CdkTableModule} from '@angular/cdk';
     HttpModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MdAutocompleteModule,
-    MdButtonModule,
-    MdButtonToggleModule,
-    MdCardModule,
-    MdCheckboxModule,
-    MdChipsModule,
-    MdCoreModule,
-    MdDatepickerModule,
-    MdDialogModule,
-    MdExpansionModule,
-    MdGridListModule,
-    MdIconModule,
-    MdInputModule,
-    MdListModule,
-    MdMenuModule,
-    MdNativeDateModule,
-    MdPaginatorModule,
-    MdProgressBarModule,
-    MdProgressSpinnerModule,
-    MdRadioModule,
-    MdRippleModule,
-    MdSelectModule,
-    MdSidenavModule,
-    MdSliderModule,
-    MdSlideToggleModule,
-    MdSnackBarModule,
-    MdSortModule,
-    MdTableModule,
-    MdTabsModule,
-    MdToolbarModule,
-    MdTooltipModule,
-    CdkTableModule
+    CdkTableModule,
+    DropDownsModule,
+    JsonpModule,
+    ButtonsModule,
+    GridModule
   ],
   providers: [AppComponent],
   bootstrap: [AppComponent]

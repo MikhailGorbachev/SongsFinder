@@ -1,5 +1,6 @@
 package mgorbachev.songs.finder.repositories.impl;
 
+import mgorbachev.songs.finder.entities.Artist;
 import mgorbachev.songs.finder.entities.Song;
 import mgorbachev.songs.finder.repositories.SearchRepository;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -9,6 +10,7 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
@@ -50,6 +52,14 @@ public class SongRepositoryImpl implements SearchRepository {
         final SearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(builder).build();
 
         return esTemplate.queryForList(searchQuery, Song.class);
+    }
+
+    @Override
+    public List<Artist> findArtistsByName(String artistName) {
+        final QueryBuilder builder = nestedQuery("artists", matchPhrasePrefixQuery("artists.name", artistName));
+        final SearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(builder).build();
+
+        return esTemplate.queryForList(searchQuery, Song.class).stream().flatMap(song-> song.getArtists().stream()).distinct().collect(Collectors.toList());
     }
 
 
