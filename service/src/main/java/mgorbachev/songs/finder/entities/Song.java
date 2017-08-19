@@ -6,6 +6,7 @@ import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -19,16 +20,16 @@ public class Song implements Serializable {
     private String name;
 
     @Field(type = FieldType.Nested)
-    private List<Person> authors;
+    private List<Person> authors = Collections.emptyList();
 
     @Field(type = FieldType.Nested)
-    private List<Person> composers;
+    private List<Person> composers = Collections.emptyList();
 
     @Field(type = FieldType.Nested)
-    private List<Artist> artists;
+    private List<Artist> artists = Collections.emptyList();
 
     @Field(type = FieldType.Nested)
-    private List<Album> albums;
+    private List<Album> albums = Collections.emptyList();
 
     public Song() {
     }

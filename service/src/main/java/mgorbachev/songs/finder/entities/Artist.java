@@ -38,4 +38,22 @@ public class Artist implements Serializable {
     public void setType(ArtistType type) {
         this.type = type;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Artist artist = (Artist) o;
+
+        if (!name.equals(artist.name)) return false;
+        return type == artist.type;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + type.hashCode();
+        return result;
+    }
 }

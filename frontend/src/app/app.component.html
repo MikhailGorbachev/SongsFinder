@@ -22,53 +22,59 @@
   </p>
   <p>
     <label>Search text:</label>
-    <!--<input  [(ngModel)]="queryText" />-->
-
-  <p *ngIf="searchTypeValue.id == '3'">
-    <kendo-autocomplete [data]="data"
+    <kendo-autocomplete *ngIf="searchTypeValue.id == '3'"
+                        [data]="data"
                         (valueChange)="valueChange($event)"
                         (filterChange)="filterChange($event)"
                         [(ngModel)]="queryText"
                         [filterable]="true">
     </kendo-autocomplete>
-  </p>
-  <p *ngIf="searchTypeValue.id != '3'">
-    <input type="text" class="k-widget" [(ngModel)]="queryText" />
+
+    <input *ngIf="searchTypeValue.id != '3'" class="k-widget k-autocomplete k-header" [(ngModel)]="queryText"/>
   </p>
 
   <button kendoButton (click)="find();">Find</button>
 
-  <kendo-grid *ngIf="searchTypeValue.id!='3'" [data]="gridData" [height]="410">
-
+  <kendo-grid *ngIf="searchTypeValue.id=='1' || searchTypeValue.id=='2' || searchTypeValue.id=='6'" [data]="gridData" [height]="410">
     <kendo-grid-column field="id" title="ID" width="40">
     </kendo-grid-column>
     <kendo-grid-column field="name" title="Name" width="250">
     </kendo-grid-column>
-    <kendo-grid-column  field="authors" title="Authors" width="250">
+    <kendo-grid-column field="authors" title="Authors" width="250">
     </kendo-grid-column>
-    <kendo-grid-column  field="composers" title="Composers" width="250">
+    <kendo-grid-column field="composers" title="Composers" width="250">
     </kendo-grid-column>
-    <kendo-grid-column  field="albums" title="Albums" width="250">
+    <kendo-grid-column field="albums" title="Albums" width="250">
     </kendo-grid-column>
-    <kendo-grid-column  field="artists" title="Artists" width="250">
+    <kendo-grid-column field="artists" title="Artists" width="250">
     </kendo-grid-column>
   </kendo-grid>
 
   <kendo-grid *ngIf="searchTypeValue.id=='3'" [data]="gridData" [height]="410">
     <kendo-grid-column field="name" title="Name" width="250">
     </kendo-grid-column>
-    <kendo-grid-column  field="type" title="Artist type" width="250">
+    <kendo-grid-column field="type" title="Artist type" width="250">
+    </kendo-grid-column>
+  </kendo-grid>
+
+  <kendo-grid *ngIf="searchTypeValue.id=='4'" [data]="gridData" [height]="410">
+    <kendo-grid-column field="name" title="Group Name" width="250">
+    </kendo-grid-column>
+  </kendo-grid>
+
+  <kendo-grid *ngIf="searchTypeValue.id=='5'" [data]="gridData" [height]="410">
+    <kendo-grid-column field="name" title="Album Name" width="250">
     </kendo-grid-column>
   </kendo-grid>
 </div>
 
 <!--<div>-->
-  <!--<table class="table">-->
-    <!--<tr *ngFor="let song of data">-->
-      <!--<td >{{song.name}}</td>-->
-      <!--<td >{{song.id}}</td>-->
-    <!--</tr>-->
-  <!--</table>-->
+<!--<table class="table">-->
+<!--<tr *ngFor="let song of data">-->
+<!--<td >{{song.name}}</td>-->
+<!--<td >{{song.id}}</td>-->
+<!--</tr>-->
+<!--</table>-->
 <!--</div>-->
 
 

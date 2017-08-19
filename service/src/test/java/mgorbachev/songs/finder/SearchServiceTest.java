@@ -71,12 +71,24 @@ public class SearchServiceTest {
     @Test
     public void testFindAlbumsBySong() {
         Song song = populateSong();
-
-        List<Album> albums = searchService.findAlbumsBySong("1");
+        populateSongWithSameAlbum();
+        List<Album> albums = searchService.findAlbumsBySong("one");
 
         assertNotNull(albums);
         assertEquals(1, albums.size());
         assertEquals(song.getAlbums().get(0).getName(), albums.get(0).getName());
+    }
+
+    private Song populateSongWithSameAlbum() {
+        Person lars = new Person("Lars Ulrich");
+        Person james = new Person("James Hetfield");
+        List<Person> personList = newArrayList(lars, james);
+
+        Song song = new Song("2", "One", personList, personList,
+                newArrayList(new Artist("Cover Metallica", Artist.ArtistType.GROUP)),
+                newArrayList(new Album("And Justice for All")));
+
+        return songRepository.save(song);
     }
 
 
@@ -105,6 +117,17 @@ public class SearchServiceTest {
 
 
     @Test
+    public void testFindGroupsByArtistName() {
+        populateSong();
+        populateAnotherSong();
+
+        List<Artist> groups = searchService.findGroupsByArtistName("lars");
+
+        assertNotNull(groups);
+        assertEquals(1, groups.size());
+    }
+
+    @Test
     public void testFindSongsByPartialName() {
         Song song = populateSong();
 
@@ -126,6 +149,20 @@ public class SearchServiceTest {
                         new Artist(lars.getFullName(), Artist.ArtistType.SINGLE),
                         new Artist(james.getFullName(), Artist.ArtistType.SINGLE)),
                 newArrayList(new Album("And Justice for All")));
+
+        return songRepository.save(song);
+    }
+
+    private Song populateAnotherSong() {
+        Person lars = new Person("Lars Ulrich");
+        Person james = new Person("James Hetfield");
+        List<Person> personList = newArrayList(lars, james);
+
+        Song song = new Song("2", "Nothing else matters", personList, personList,
+                newArrayList(new Artist("Metallica", Artist.ArtistType.GROUP),
+                        new Artist(lars.getFullName(), Artist.ArtistType.SINGLE),
+                        new Artist(james.getFullName(), Artist.ArtistType.SINGLE)),
+                newArrayList(new Album("The best of Metallica")));
 
         return songRepository.save(song);
     }

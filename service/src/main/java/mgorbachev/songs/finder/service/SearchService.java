@@ -5,8 +5,6 @@ import mgorbachev.songs.finder.entities.Artist;
 import mgorbachev.songs.finder.entities.Song;
 import mgorbachev.songs.finder.repositories.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,24 +32,25 @@ public class SearchService {
         List<Song> songs = songRepository.findSongsByName(songName);
         List<Artist> artists = Collections.emptyList();
         if (songs != null) {
-            artists = songs.stream().flatMap(song -> song.getArtists().stream()).collect(Collectors.toList());
+            artists = songs.stream()
+                    .flatMap(song -> song.getArtists().stream())
+                    .distinct()
+                    .collect(Collectors.toList());
         }
         return artists;
     }
 
-
-    public List<Artist> findGroupsByArtistName(String artistName) {
-        //TODO TBD
-        return null;
-    }
-
-    @RequestMapping("/albums/song/{songId}")
-    public List<Album> findAlbumsBySong(@PathVariable String songId) {
-        Song song = songRepository.findById(songId);
+    @RequestMapping("/albums/song/{songName}")
+    public List<Album> findAlbumsBySong(@PathVariable String songName) {
+        List<Song> songs = songRepository.findSongsByName(songName);
         List<Album> albums = Collections.emptyList();
-        if (song != null && !CollectionUtils.isEmpty(song.getAlbums())) {
-            albums = song.getAlbums();
+        if (songs != null) {
+            albums = songs.stream()
+                    .flatMap(song -> song.getAlbums().stream())
+                    .distinct()
+                    .collect(Collectors.toList());
         }
+
         return albums;
     }
 
@@ -74,6 +73,15 @@ public class SearchService {
     @RequestMapping("/songs/{songNamePart}")
     public List<Song> findSongsByName(@PathVariable String songNamePart) {
         return songRepository.findSongsByName(songNamePart);
+    }
+
+    @RequestMapping("/groups/artist/{artistName}")
+    public List<Artist> findGroupsByArtistName(@PathVariable String artistName) {
+        return songRepository.findSongsByArtist(artistName).stream()
+                .flatMap(song -> song.getArtists().stream())
+                .filter(artist -> artist.getType() == Artist.ArtistType.GROUP)
+                .distinct()
+                .collect(Collectors.toList());
     }
 
 }

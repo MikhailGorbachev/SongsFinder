@@ -19,7 +19,10 @@ export class AppComponent {
   searchTypes = [
     {id: "1", name: "Search songs by artist"},
     {id: "2", name: "Search songs by composer"},
-    {id: "3", name: "Search artists by song name"}
+    {id: "3", name: "Search artists by song name"},
+    {id: "4", name: "Search groups by artist name"},
+    {id: "5", name: "Search albums by song name"},
+    {id: "6", name: "Search songs by author"},
   ];
 
   searchTypeValue = this.searchTypes[0];
@@ -70,6 +73,30 @@ export class AppComponent {
           url = this.baseUrl + '/artists/song/' + this.queryText;
           this.http.get(url).map((res: Response) => res.json()).subscribe(data => {
             this.gridData = data;
+          })
+          break;
+        case "4":
+          url = this.baseUrl + '/groups/artist/' + this.queryText;
+          this.http.get(url).map((res: Response) => res.json()).subscribe(data => {
+            this.gridData = data;
+          })
+          break;
+        case "5":
+          url = this.baseUrl + '/albums/song/' + this.queryText;
+          this.http.get(url).map((res: Response) => res.json()).subscribe(data => {
+            this.gridData = data
+          })
+          break;
+        case "6":
+          url = this.baseUrl + '/songs/author/' + this.queryText;
+          this.http.get(url).map((res: Response) => res.json()).subscribe(data => {
+            this.gridData = data.map(song => {
+              song.authors = song.authors.map(author => author.fullName).join(',');
+              song.composers = song.composers.map(composer => composer.fullName).join(',');
+              song.artists = song.artists.map(artist => artist.name).join(',');
+              song.albums = song.albums.map(album => album.name).join(',');
+              return song;
+            })
           })
           break;
       }
