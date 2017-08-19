@@ -22,8 +22,13 @@ public class DataLoaderService {
     @Autowired
     private SongRepository songRepository;
 
-    public void loadData(URI uriPath) throws IOException {
-        Files.lines(Paths.get(uriPath)).skip(1).flatMap(str -> {
+    /**
+     * Loading the data from CSV file
+     * @param path to csv file with songs
+     * @throws IOException io issues, i.e file not found
+     */
+    public void loadData(String path) throws IOException {
+        Files.lines(Paths.get(path)).skip(1).flatMap(str -> {
                 String[] values = str.split(",");
                 String authors;
                 String composers;

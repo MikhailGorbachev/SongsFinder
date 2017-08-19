@@ -6,8 +6,10 @@ requirements:
 1. installed Maven
 2. installed Node JS to build angular app
 
-to build app use maven in the project root directory: 
+to build app use maven from the project root directory: 
 mvn clean package   
 
 to run app use:
 mvn -pl service spring-boot:run
+OR from root project folder 
+java -jar service/target/service-1.0-SNAPSHOT.jar
